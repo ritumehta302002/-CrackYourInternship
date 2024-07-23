@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        int len1=a.length();
+        int len2=b.length();
+        int i=0;
+        int c=0;
+        string result="";
+        
+        while(i<len1||i<len2||c!=0){
+            int x=0;
+            if(i<len1 && a[len1-i-1]=='1'){
+                x=1;
+            }
+            int y=0;
+            if(i<len2 and b[len2-i-1]=='1'){
+                y=1;
+            }
+            result=to_string((x+y+c)%2)+result;
+            c=(x+y+c)/2;
+            i+=1;
+        }
+        return result;
+    }
+};
