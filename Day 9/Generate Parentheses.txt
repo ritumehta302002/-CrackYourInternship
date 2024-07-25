@@ -1,0 +1,21 @@
+class Solution {
+public:
+    void put(vector<string> &vec, int n, int oc, int cc, string s){
+        if(oc==n && cc==n){
+            vec.push_back(s);
+            return;
+        }
+        if(oc<n){
+            put(vec,n,oc+1,cc,s+"(");
+        }
+        if(cc<oc){
+            put(vec,n,oc,cc+1,s+")");
+        }
+    }
+    vector<string> generateParenthesis(int n) {
+        vector<string> vec;
+        int oc=0,cc=0;
+        put(vec,n,oc,cc,"");
+        return vec;
+    }
+};
