@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    set<vector<int>> uniquePermutations;
+
+    void helper(vector<int> &nums, int i) {
+        if (i == nums.size()) {
+            if (uniquePermutations.find(nums) == uniquePermutations.end()) {
+                ans.push_back(nums);
+                uniquePermutations.insert(nums);
+            }
+            return;
+        }
+        for (int j = i; j < nums.size(); j++) {
+            swap(nums[i], nums[j]);
+            helper(nums, i + 1);
+            swap(nums[i], nums[j]); 
+        }
+    }
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        ans.clear();
+        uniquePermutations.clear();
+        helper(nums, 0);
+        return ans;
+    }
+};

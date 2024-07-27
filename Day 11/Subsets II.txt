@@ -1,0 +1,19 @@
+class Solution {
+public:
+    vector<vector<int>> ans;
+    set<vector<int>> ne;
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(), nums.end()); 
+        int n=nums.size();
+        for(int i=0;i<(1<<n);i++){
+            vector<int> v;
+            for(int j=0;j<n;j++){
+                if((1<<j)&i)
+                    v.push_back(nums[j]);
+            }
+            ne.insert(v);
+        }
+        ans.assign(ne.begin(), ne.end());
+        return ans;
+    }
+};
