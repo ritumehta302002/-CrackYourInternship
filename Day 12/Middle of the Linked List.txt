@@ -1,0 +1,23 @@
+class Solution {
+public:
+    ListNode* middleNode(ListNode* head) {
+        int count=1;
+        ListNode *x=head;
+        while(x->next!=NULL){
+            count++;
+            x=x->next;
+        }
+    
+        ListNode *slow=head;
+        ListNode *fast=head;
+        
+        while(fast->next!=NULL && fast->next->next!=NULL){
+            slow=slow->next;
+            fast=fast->next->next;
+        }
+        if(count%2!=0)
+        return slow;
+        else
+            return slow->next;
+    }
+};s

@@ -1,0 +1,29 @@
+class Solution {
+public:
+    ListNode* getIntersectionNode(ListNode *headA, ListNode *headB) {
+        std::stack<ListNode*> stackA;
+        std::stack<ListNode*> stackB;
+
+        ListNode* p = headA;
+        while (p) {
+            stackA.push(p);
+            p = p->next;
+        }
+
+        ListNode* q = headB;
+        while (q) {
+            stackB.push(q);
+            q = q->next;
+        }
+
+        ListNode* intersection = nullptr;
+
+        while (!stackA.empty() && !stackB.empty() && stackA.top() == stackB.top()) {
+            intersection = stackA.top(); 
+            stackA.pop();
+            stackB.pop();
+        }
+
+        return intersection;
+    }
+};
