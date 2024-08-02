@@ -1,0 +1,15 @@
+class Solution {
+public:
+    bool isValidBST(TreeNode* root) {
+        long long min=-10000000000,max=10000000000;
+        return Poss(root,min,max);
+    }
+    private:
+    bool Poss(TreeNode* root, long long int l,long long int r){
+        if(root==NULL)
+            return true;
+        if(root->val <r && root->val>l)
+            return Poss(root->left,l,root->val) && Poss(root->right,root->val,r);
+        else return false;
+    }
+};
