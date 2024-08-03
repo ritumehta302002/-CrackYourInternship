@@ -1,0 +1,28 @@
+class MyStack {
+public:
+    queue<int> queue;
+    MyStack() {}
+    
+    void push(int x) {
+        queue.push(x);
+    }
+    
+    int pop() {
+        int n = queue.size();
+        for (int i = 1; i < n; i++) {
+            queue.push(queue.front());
+            queue.pop();
+        }
+        int topElement = queue.front();
+        queue.pop();
+        return topElement;
+    }
+    
+    int top() {
+        return queue.back();
+    }
+    
+    bool empty() {
+        return queue.empty();
+    }
+};

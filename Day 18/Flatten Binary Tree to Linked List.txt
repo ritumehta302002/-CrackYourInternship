@@ -1,0 +1,20 @@
+class Solution {
+    TreeNode *prev;
+    void preorder(TreeNode *curr){
+         if(!curr) return;
+        if(prev){
+            prev->left=NULL;
+            prev->right=curr;
+        }
+        TreeNode* r=curr->right;
+        prev=curr;
+        preorder(curr->left);
+        preorder(r);
+    }
+public:
+    void flatten(TreeNode* root) {
+        prev=NULL;
+        preorder(root);
+       
+    }
+};
