@@ -1,0 +1,31 @@
+class Solution
+{
+    public:
+    int missingNumber(int arr[], int n) 
+    { 
+        int shift = 0;
+        for (int i = 0; i < n; i++) {
+            if (arr[i] <= 0) {
+                swap(arr[i], arr[shift]);
+                shift++;
+            }
+        }
+        
+        int positiveSize = n - shift;
+        int* positiveArr = arr + shift;
+        
+        for (int i = 0; i < positiveSize; i++) {
+            int absValue = abs(positiveArr[i]);
+            if (absValue <= positiveSize && positiveArr[absValue - 1] > 0) {
+                positiveArr[absValue - 1] = -positiveArr[absValue - 1];
+            }
+        }
+        
+        for (int i = 0; i < positiveSize; i++) {
+            if (positiveArr[i] > 0) {
+                return i + 1;
+            }
+        }
+        return positiveSize + 1;
+    } 
+};
