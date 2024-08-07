@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool isPalin(string &s){
+            int l=0;
+            int r=s.size()-1;
+            while(l<r)
+                if(s[l++]!=s[r--])
+                    return false;
+        return true;
+        } 
+    vector<vector<int>> palindromePairs(vector<string>& words) {
+        vector<vector<int>> ans;
+        if(words.size()<2)
+            return ans;
+        unordered_map<string,int> occ;
+        for(int i=0;i<words.size();i++){
+            auto s=words[i];
+            reverse(s.begin(),s.end());
+            occ[s]=i;
+        }
+        for(int i=0;i<words.size();i++){
+            for(int j=0;j<=words[i].size();j++){
+                string st1=words[i].substr(0,j);
+                string st2=words[i].substr(j);
+                if(occ.count(st1) && isPalin(st2) && occ[st1]!=i)
+                    ans.push_back({i,occ[st1]});
+                if(!st1.empty() && occ.count(st2) && isPalin(st1) && occ[st2]!=i)
+                    ans.push_back({occ[st2],i});
+            }
+        }
+        return ans;
+    }
+};
