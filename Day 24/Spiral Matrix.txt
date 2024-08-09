@@ -1,0 +1,60 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int top=0;
+        int n=matrix.size();
+        int left=0;
+        int m=matrix[0].size();
+        vector<int> v;
+        if(n*m==1){
+            v.push_back(matrix[top][left]);
+                return v;
+            }
+        else if(n==1){
+            for(int i=0;i<m;i++){
+                v.push_back(matrix[0][i]);
+            }
+            return v;
+        }
+        else if(m==1){
+            for(int i=0;i<n;i++){
+                v.push_back(matrix[i][0]);
+            }
+            return v;
+        }
+        while(matrix[n/2][m/2]!=200){
+            while(left<m && matrix[top][left]!=200){
+                v.push_back(matrix[top][left]);
+                matrix[top][left]=200;
+                if(left!=m-1 && matrix[top][left+1]!=200)
+                left++;
+            }
+            top++;
+            
+            while(top<n && matrix[top][left]!=200){
+                v.push_back(matrix[top][left]);
+                matrix[top][left]=200;
+                if(top!=n-1 && matrix[top+1][left]!=200)
+                top++;
+            }
+            left--;
+            
+            while(left>=0 && matrix[top][left]!=200){
+                v.push_back(matrix[top][left]);
+                matrix[top][left]=200;
+                if(left!=0 && matrix[top][left-1]!=200)
+                left--;
+            }
+            top--;
+            
+            while(top>=0 && matrix[top][left]!=200){
+                v.push_back(matrix[top][left]);
+                matrix[top][left]=200;
+                if(top!=0 && matrix[top-1][left]!=200)
+                top--;
+            }
+            left++;
+        }
+        return v;
+    }
+};
