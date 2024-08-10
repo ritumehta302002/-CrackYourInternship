@@ -1,0 +1,52 @@
+ int n = s.length();
+        int m = p.length();
+        
+        // Base case: if length of P is greater than S, it's impossible to find a window
+        if(m > n) return "-1";
+        
+        // Frequency array for pattern characters
+        vector<int> p_freq(256, 0);
+        for(char c : p) {
+            p_freq[c]++;
+        }
+        
+        // Variables to keep track of the window and match count
+        int start = 0, min_len = INT_MAX, count = 0, min_start = -1;
+        vector<int> s_freq(256, 0);
+        
+        // Slide the window over string S
+        for(int end = 0; end < n; end++) {
+            char end_char = s[end];
+            s_freq[end_char]++;
+            
+            // If the character is part of P and current window has less or equal count
+            if(p_freq[end_char] != 0 && s_freq[end_char] <= p_freq[end_char]) {
+                count++;
+            }
+            
+            // When all characters from P are matched
+            while(count == m) {
+                // Update the minimum length window
+                if(min_len > end - start + 1) {
+                    min_len = end - start + 1;
+                    min_start = start;
+                }
+                
+                // Try to minimize the window by moving the start index
+                char start_char = s[start];
+                s_freq[start_char]--;
+                
+                // If the character is part of P and its frequency in current window is less than required, decrease match count
+                if(p_freq[start_char] != 0 && s_freq[start_char] < p_freq[start_char]) {
+                    count--;
+                }
+                
+                start++;
+            }
+        }
+        
+        // If no valid window is found, return "-1"
+        if(min_start == -1) return "-1";
+        
+        // Return the smallest window
+        return s.substr(min_start, min_len);
