@@ -1,0 +1,25 @@
+class Solution{
+  public:
+    vector<vector<string> > Anagrams(vector<string>& string_list) {
+        unordered_map<string, vector<string>> anagram_map;
+        vector<string> keys_in_order;
+
+        for (string& s : string_list) {
+            string key = s;
+            sort(key.begin(), key.end());
+            
+            if (anagram_map.find(key) == anagram_map.end()) {
+                keys_in_order.push_back(key);
+            }
+            anagram_map[key].push_back(s);
+        }
+
+        vector<vector<string>> result;
+        for (const string& key : keys_in_order) {
+            result.push_back(anagram_map[key]);
+        }
+
+        return result;
+
+    }
+};
